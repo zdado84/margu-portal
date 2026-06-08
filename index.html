@@ -13,18 +13,13 @@
   --sh:0 2px 12px rgba(26,58,107,.09);--rd:12px;
 }
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;}
-
-/* SCREENS */
-.screen{display:none;min-height:100vh;}
-#auth-screen,#otp-screen{
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(135deg,#1a3a6b 0%,#2354a0 60%,#1a6b55 100%);
-}
-#app-screen{display:none;}
-
-/* AUTH BOX */
-.auth-box{background:#fff;border-radius:20px;padding:40px 38px;width:100%;max-width:460px;
-  box-shadow:0 20px 60px rgba(0,0,0,.28);max-height:95vh;overflow-y:auto;}
+#loading-screen{position:fixed;inset:0;background:linear-gradient(135deg,#1a3a6b,#2354a0);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;color:#fff;}
+#loading-screen h2{font-size:22px;font-weight:700;margin-top:16px;}
+#loading-screen p{font-size:14px;opacity:.7;margin-top:8px;}
+.spinner{width:48px;height:48px;border:4px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+#auth-screen{display:none;min-height:100vh;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a3a6b 0%,#2354a0 60%,#1a6b55 100%);}
+.auth-box{background:#fff;border-radius:20px;padding:40px 38px;width:100%;max-width:460px;box-shadow:0 20px 60px rgba(0,0,0,.28);max-height:95vh;overflow-y:auto;}
 .logo-row{display:flex;align-items:center;gap:12px;margin-bottom:26px;}
 .logo-ico{width:46px;height:46px;background:var(--pr);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;}
 .logo-row h1{font-size:17px;font-weight:700;color:var(--pr);line-height:1.2;}
@@ -38,16 +33,14 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 .fg input:focus,.fg select:focus{border-color:var(--pr);}
 .btn-main{width:100%;padding:12px;background:var(--pr);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s;}
 .btn-main:hover{background:var(--prl);}
+.btn-main:disabled{opacity:.6;cursor:not-allowed;}
 .aswitch{text-align:center;margin-top:12px;font-size:13px;color:var(--t2);}
 .aswitch a{color:var(--pr);cursor:pointer;font-weight:600;}
 .roles{display:flex;gap:7px;margin-bottom:14px;}
 .rbtn{flex:1;padding:9px 4px;border:2px solid var(--bd);border-radius:8px;cursor:pointer;text-align:center;font-size:12px;font-weight:600;color:var(--t2);transition:all .2s;background:#fff;user-select:none;}
 .rbtn.on{border-color:var(--pr);color:var(--pr);background:#eef2ff;}
 .rbtn.disabled{opacity:.3;cursor:not-allowed;pointer-events:none;}
-
-/* OTP BOX */
-.otp-box{background:#fff;border-radius:20px;padding:44px 40px;width:100%;max-width:400px;
-  box-shadow:0 20px 60px rgba(0,0,0,.28);text-align:center;}
+.otp-box{background:#fff;border-radius:20px;padding:44px 40px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.28);text-align:center;}
 .otp-icon{font-size:52px;margin-bottom:14px;}
 .otp-box h2{font-size:21px;font-weight:700;margin-bottom:8px;}
 .otp-box p{font-size:13px;color:var(--t2);margin-bottom:22px;line-height:1.5;}
@@ -58,9 +51,8 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 .otimer b{color:var(--dn);}
 .oback{margin-top:12px;font-size:13px;color:var(--t2);cursor:pointer;}
 .oback:hover{color:var(--pr);}
-
-/* APP LAYOUT */
-#app-screen{flex-direction:column;}
+#otp-screen{display:none;min-height:100vh;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a3a6b 0%,#2354a0 60%,#1a6b55 100%);}
+#app-screen{display:none;flex-direction:column;min-height:100vh;}
 .topbar{background:var(--pr);color:#fff;display:flex;align-items:center;padding:0 24px;height:60px;gap:14px;box-shadow:0 2px 8px rgba(0,0,0,.2);flex-shrink:0;}
 .tb-logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px;white-space:nowrap;}
 .tb-nav{display:flex;gap:3px;margin-left:16px;flex-wrap:wrap;}
@@ -74,8 +66,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 .uchip span{font-size:13px;font-weight:500;}
 .lbtn{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;}
 .mcontent{padding:26px 30px;flex:1;overflow-y:auto;}
-
-/* COMPONENTS */
 .sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:22px;}
 .scard{background:#fff;border-radius:var(--rd);padding:18px 20px;box-shadow:var(--sh);display:flex;align-items:center;gap:14px;}
 .sico{width:46px;height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;}
@@ -90,37 +80,27 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 .qico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;}
 .qcard h3{font-size:13px;font-weight:700;}
 .qcard p{font-size:11px;color:var(--t2);}
-
-/* TABLE */
 .tw{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;}
 th{font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px;padding:9px 11px;background:#f8faff;border-bottom:1px solid var(--bd);text-align:left;}
 td{padding:11px 11px;font-size:13px;border-bottom:1px solid #f0f3fa;vertical-align:middle;}
 tr:last-child td{border-bottom:none;}
 tr:hover td{background:#fafbff;}
-
-/* BADGES */
 .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;}
-.bg{background:#e6f7ee;color:#2a8a5a;} .by{background:#fff8e6;color:#a06810;}
-.br{background:#fee6e6;color:#a02020;} .bb{background:#e6eeff;color:#2350a0;}
-.bk{background:#f0f2f5;color:#6a7a9a;} .bp{background:#f0e6ff;color:#6a30a0;}
-
-/* BUTTONS */
+.bg{background:#e6f7ee;color:#2a8a5a;}.by{background:#fff8e6;color:#a06810;}
+.br{background:#fee6e6;color:#a02020;}.bb{background:#e6eeff;color:#2350a0;}
+.bk{background:#f0f2f5;color:#6a7a9a;}
 .btn{padding:8px 15px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s;font-family:inherit;}
 .sm{padding:5px 10px;font-size:12px;border-radius:6px;}
-.blu{background:var(--pr);color:#fff;} .blu:hover{background:var(--prl);}
-.grn{background:var(--ac);color:#fff;} .grn:hover{background:#3d9f6e;}
-.red{background:var(--dn);color:#fff;} .red:hover{background:#c04040;}
-.out{background:#fff;border:1.5px solid var(--bd);color:var(--tx);} .out:hover{border-color:var(--pr);color:var(--pr);}
-
-/* MODAL */
+.blu{background:var(--pr);color:#fff;}.blu:hover{background:var(--prl);}
+.grn{background:var(--ac);color:#fff;}.grn:hover{background:#3d9f6e;}
+.red{background:var(--dn);color:#fff;}
+.out{background:#fff;border:1.5px solid var(--bd);color:var(--tx);}.out:hover{border-color:var(--pr);color:var(--pr);}
 .moverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.46);z-index:1000;align-items:center;justify-content:center;}
 .moverlay.on{display:flex;}
 .mbox{background:#fff;border-radius:16px;padding:30px;width:100%;max-width:540px;box-shadow:0 20px 60px rgba(0,0,0,.25);max-height:90vh;overflow-y:auto;}
 .mbox h2{font-size:18px;font-weight:700;margin-bottom:20px;}
 .macts{display:flex;gap:9px;margin-top:20px;justify-content:flex-end;}
-
-/* NOTIF PANEL */
 .npanel{position:fixed;top:60px;right:14px;background:#fff;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.15);width:310px;z-index:500;display:none;}
 .npanel.on{display:block;}
 .nph{padding:13px 15px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;}
@@ -129,13 +109,9 @@ tr:hover td{background:#fafbff;}
 .ni:last-child{border-bottom:none;}
 .ni strong{display:block;margin-bottom:2px;font-size:13px;}
 .ni time{color:var(--t2);font-size:11px;}
-
-/* PAGE TABS */
-.ptabs{display:flex;gap:3px;margin-bottom:18px;background:#fff;border-radius:10px;padding:4px;box-shadow:var(--sh);width:fit-content;}
+.ptabs{display:flex;gap:3px;margin-bottom:18px;background:#fff;border-radius:10px;padding:4px;box-shadow:var(--sh);width:fit-content;flex-wrap:wrap;}
 .ptab{padding:7px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:500;color:var(--t2);border:none;background:transparent;transition:all .2s;font-family:inherit;}
 .ptab.on{background:var(--pr);color:#fff;}
-
-/* MISC */
 .dtag{display:inline-flex;align-items:center;background:#eef2ff;color:var(--pr);padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;margin:2px;}
 .flowrow{display:flex;align-items:center;overflow-x:auto;margin-bottom:12px;}
 .fdot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;}
@@ -147,9 +123,7 @@ tr:hover td{background:#fafbff;}
 .fdrop:hover,.fdrop.dov{border-color:var(--pr);background:#f0f4ff;}
 .fdrop p{color:var(--t2);font-size:12px;margin-top:5px;}
 .flist{margin-top:9px;display:flex;flex-direction:column;gap:5px;}
-.fi{display:flex;align-items:center;gap:8px;background:#f4f6fb;padding:6px 10px;border-radius:7px;font-size:12px;}
-.fi span{flex:1;}
-.fi button{background:none;border:none;cursor:pointer;color:var(--dn);font-size:14px;line-height:1;}
+.fi{display:flex;align-items:center;gap:8px;background:#f4f6fb;padding:7px 11px;border-radius:7px;font-size:12px;}
 .empty{text-align:center;padding:40px 20px;color:var(--t2);}
 .empty .ei{font-size:44px;margin-bottom:10px;}
 .empty p{font-size:13px;}
@@ -157,19 +131,24 @@ tr:hover td{background:#fafbff;}
 .toast{background:var(--pr);color:#fff;padding:11px 18px;border-radius:10px;font-size:13px;font-weight:500;box-shadow:0 4px 18px rgba(0,0,0,.2);animation:sin .3s ease;min-width:230px;}
 .toast.ok{background:var(--ac);}.toast.err{background:var(--dn);}.toast.warn{background:var(--am);}
 @keyframes sin{from{transform:translateX(60px);opacity:0}to{transform:translateX(0);opacity:1}}
+.del-btn{background:none;border:none;cursor:pointer;color:var(--dn);font-size:18px;padding:2px 6px;border-radius:5px;}
+.del-btn:hover{background:#fee6e6;}
 .dn{display:none!important;}
 .flex{display:flex;}.gap2{gap:8px;}.aic{align-items:center;}.jsb{justify-content:space-between;}.wf{width:100%;}
 @media(max-width:900px){.sgrid{grid-template-columns:1fr 1fr;}.twocol{grid-template-columns:1fr;}.mcontent{padding:14px;}.qacts{flex-direction:column;}}
-
-/* DANGER ROW */
-.del-btn{background:none;border:none;cursor:pointer;color:var(--dn);font-size:18px;padding:2px 6px;border-radius:5px;transition:background .15s;}
-.del-btn:hover{background:#fee6e6;}
 </style>
 </head>
 <body>
 
-<!-- ═══════ AUTH ═══════ -->
-<div id="auth-screen">
+<!-- LOADING -->
+<div id="loading-screen">
+  <div class="spinner"></div>
+  <h2>Портал аттестации МарГУ</h2>
+  <p>Подключение к базе данных...</p>
+</div>
+
+<!-- AUTH -->
+<div id="auth-screen" style="display:none;">
   <div class="auth-box">
     <div class="logo-row">
       <div class="logo-ico">🎓</div>
@@ -179,58 +158,54 @@ tr:hover td{background:#fafbff;}
       <div class="atab on" id="tab-login" onclick="showTab('login')">Вход</div>
       <div class="atab" id="tab-reg" onclick="showTab('reg')">Регистрация</div>
     </div>
-
-    <!-- LOGIN -->
     <div id="pane-login">
-      <div class="fg"><label>Email или телефон</label><input id="li" type="text" placeholder="example@margu.ru или +7..."/></div>
+      <div class="fg"><label>Email</label><input id="li" type="email" placeholder="name@margu.ru"/></div>
       <div class="fg"><label>Пароль</label><input id="lp" type="password" placeholder="Ваш пароль"/></div>
-      <button class="btn-main" onclick="doLogin()">Войти</button>
+      <button class="btn-main" id="login-btn" onclick="doLogin()">Войти</button>
       <div class="aswitch">Нет аккаунта? <a onclick="showTab('reg')">Зарегистрироваться</a></div>
     </div>
-
-    <!-- REGISTER -->
     <div id="pane-reg" class="dn">
       <p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.4px;">Я являюсь:</p>
       <div class="roles">
         <div class="rbtn on" id="rb-student" onclick="pickRole('student')">👨‍🎓 Студент</div>
         <div class="rbtn" id="rb-teacher" onclick="pickRole('teacher')">👨‍🏫 Преподаватель</div>
-        <div class="rbtn" id="rb-admin"   onclick="pickRole('admin')">⚙️ Администратор</div>
+        <div class="rbtn" id="rb-admin" onclick="pickRole('admin')">⚙️ Администратор</div>
       </div>
-      <div class="fg"><label>ФИО <span style="color:var(--dn)">*</span></label><input id="rn" type="text" placeholder="Иванов Иван Иванович"/></div>
-      <div class="fg"><label>Email <span style="color:var(--dn)">*</span></label><input id="re" type="email" placeholder="name@margu.ru"/></div>
+      <div class="fg"><label>ФИО *</label><input id="rn" type="text" placeholder="Иванов Иван Иванович"/></div>
+      <div class="fg"><label>Email *</label><input id="re" type="email" placeholder="name@margu.ru"/></div>
       <div class="fg"><label>Телефон</label><input id="rph" type="tel" placeholder="+7 (900) 000-00-00"/></div>
       <div class="fg" id="fg-group"><label>Группа</label><input id="rg" type="text" placeholder="КСИ-21"/></div>
       <div class="fg dn" id="fg-dept"><label>Кафедра</label><input id="rd" type="text" placeholder="Кафедра информатики"/></div>
-      <div class="fg dn" id="fg-disc"><label>Дисциплины (через запятую)</label><input id="rdi" type="text" placeholder="Математика, Физика, ИС"/><div style="font-size:11px;color:var(--t2);margin-top:3px;">Дисциплины, которые вы преподаёте</div></div>
-      <div class="fg"><label>Пароль <span style="color:var(--dn)">*</span></label><input id="rpass" type="password" placeholder="Минимум 6 символов"/></div>
+      <div class="fg dn" id="fg-disc"><label>Дисциплины (через запятую)</label><input id="rdi" type="text" placeholder="Математика, Физика, ИС"/></div>
+      <div class="fg"><label>Пароль * (мин. 6 символов)</label><input id="rpass" type="password" placeholder="Минимум 6 символов"/></div>
       <button class="btn-main" id="reg-btn" onclick="startReg()">📧 Получить код подтверждения</button>
       <div class="aswitch">Уже есть аккаунт? <a onclick="showTab('login')">Войти</a></div>
     </div>
   </div>
 </div>
 
-<!-- ═══════ OTP ═══════ -->
-<div id="otp-screen" style="display:none;min-height:100vh;background:linear-gradient(135deg,#1a3a6b 0%,#2354a0 60%,#1a6b55 100%);align-items:center;justify-content:center;">
+<!-- OTP -->
+<div id="otp-screen" style="display:none;min-height:100vh;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a3a6b 0%,#2354a0 60%,#1a6b55 100%);">
   <div class="otp-box">
     <div class="otp-icon">📧</div>
     <h2>Подтвердите Email</h2>
-    <p id="otp-desc">Введите 6-значный код, отправленный на вашу почту.</p>
+    <p id="otp-desc">Введите 6-значный код.</p>
     <div class="otp-row">
-      <input class="odig" id="d0" maxlength="1" oninput="dn(0)" onkeydown="db(event,0)">
-      <input class="odig" id="d1" maxlength="1" oninput="dn(1)" onkeydown="db(event,1)">
-      <input class="odig" id="d2" maxlength="1" oninput="dn(2)" onkeydown="db(event,2)">
-      <input class="odig" id="d3" maxlength="1" oninput="dn(3)" onkeydown="db(event,3)">
-      <input class="odig" id="d4" maxlength="1" oninput="dn(4)" onkeydown="db(event,4)">
-      <input class="odig" id="d5" maxlength="1" oninput="dn(5)" onkeydown="db(event,5)">
+      <input class="odig" id="d0" maxlength="1" oninput="otpNext(0)" onkeydown="otpBack(event,0)">
+      <input class="odig" id="d1" maxlength="1" oninput="otpNext(1)" onkeydown="otpBack(event,1)">
+      <input class="odig" id="d2" maxlength="1" oninput="otpNext(2)" onkeydown="otpBack(event,2)">
+      <input class="odig" id="d3" maxlength="1" oninput="otpNext(3)" onkeydown="otpBack(event,3)">
+      <input class="odig" id="d4" maxlength="1" oninput="otpNext(4)" onkeydown="otpBack(event,4)">
+      <input class="odig" id="d5" maxlength="1" oninput="otpNext(5)" onkeydown="otpBack(event,5)">
     </div>
     <button class="btn-main" onclick="verifyOTP()">Подтвердить и создать аккаунт</button>
     <div class="otimer" id="otw">Повторно через <b id="otc">60</b>с</div>
-    <div class="otimer dn" id="ors"><a style="color:var(--pr);cursor:pointer;" onclick="resendOTP()">Отправить код повторно</a></div>
+    <div class="otimer dn" id="ors"><a style="color:var(--pr);cursor:pointer;" onclick="resendOTP()">Отправить повторно</a></div>
     <div class="oback" onclick="cancelOTP()">← Назад</div>
   </div>
 </div>
 
-<!-- ═══════ APP ═══════ -->
+<!-- APP -->
 <div id="app-screen" style="display:none;flex-direction:column;min-height:100vh;">
   <div class="topbar">
     <div class="tb-logo">🎓 Портал аттестации МарГУ</div>
@@ -251,6 +226,7 @@ tr:hover td{background:#fafbff;}
 <div class="moverlay" id="mo" onclick="closeMO(event)"><div class="mbox" id="mb"></div></div>
 <div id="toasts"></div>
 
-<script src="app.js"></script>
+<!-- Firebase SDKs -->
+<script type="module" src="app.js"></script>
 </body>
 </html>
